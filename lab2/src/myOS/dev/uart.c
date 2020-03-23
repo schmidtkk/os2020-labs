@@ -16,3 +16,5 @@ unsigned char uart_get_char(void) {
 void uart_put_chars(char* str) {
 	for (int i = 0; str[i] != '\0'; i++) {
 		outb(uart_base, str[i]);
+	}
+}

@@ -1,5 +1,5 @@
 #注意替换SRC_RT，其他内容不需要修改
-SRC_RT=~/workspace/lab2/2_multiboot2myMain
+SRC_RT=~/workspace/2_multiboot2myMain
 #$(shell pwd)
 
 CROSS_COMPILE=

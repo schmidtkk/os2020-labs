@@ -62,7 +62,7 @@ void append_char(char c, int color) {
 		break;
 	case '\n':// \n = fill the rest of current line with space
 		for (int i = 0; i < tmp; i++) {
-			append_char_raw(0x20, color);
+			append_char_raw(0x20, 0);
 		}
 		break;
 	default:// directly put char
