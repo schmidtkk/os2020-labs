@@ -2,8 +2,6 @@
 #include "../../include/myPrintk.h"
 #include "../../include/kmem.h"
 
-extern unsigned long noPreemption;
-
 typedef struct
 {
 	myTCB *task;

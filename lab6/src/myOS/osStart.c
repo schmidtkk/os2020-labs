@@ -41,8 +41,7 @@ void osStart(void)
 		myPrintk(0x2,"FAIL TO ALLOCATE STACK FOR TIME, ShutDown......\n");
 		while(1);
 	}
-
-    __asm__ __volatile__("Call enable_interrupt");
+	
 	myPrintk(0x2,"START RUNNING......\n");
 	__main();
 	myPrintk(0x2, "STOP RUNNING......ShutDown\n");

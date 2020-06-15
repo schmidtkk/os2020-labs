@@ -32,7 +32,6 @@ void tskStartDelayed(myTCB* tsk){
 }
 
 void tick_hook_arr(void){
-	__asm__ __volatile__("call disable_interrupt");
 	while(	!priorityQueueIsEmpty(&PQArr) &&
 			priorityQueueTop(&PQArr)->task->arrtime + arrTimeBase <= getTick())
 	{
@@ -40,7 +39,5 @@ void tick_hook_arr(void){
 		// priorityQueueDisplay(&PQArr);
 		tskStart(priorityQueueTop(&PQArr)->task);
 		priorityQueuePop(&PQArr);
-	}
-	__asm__ __volatile__("call enable_interrupt");
-	     
+	}	     
 }

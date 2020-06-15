@@ -36,6 +36,9 @@ typedef struct{
 #define RR 1
 #define SJF 2
 
+#define timeSlice 5
+
+
 typedef struct tskPara{
 	unsigned int priority;
 	unsigned int exetime;

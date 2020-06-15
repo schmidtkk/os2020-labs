@@ -12,7 +12,7 @@ int cmpLTSJF(priorityQueueNode *priorityQueueNode1, priorityQueueNode *priorityQ
 
 void rqSJFInit(void)
 {
-	noPreemption = 1;
+	noPreemption = 0;
 	priorityQueueInit(&rqSJF, cmpLTSJF);
 }
 
@@ -60,7 +60,7 @@ void scheduleSJF(void)
 	{
 		if (!rqSJFIsEmpty())
 		{
-			myPrintk(0xf, "SJF Scheduling...\n");
+			// myPrintk(0xf, "SJF Scheduling...\n");
 
 			// priorityQueueDisplay(&rqSJF);
 			myTCB *nextTsk = nextSJFTsk();
@@ -71,12 +71,42 @@ void scheduleSJF(void)
 			nextTsk->state = TSK_RUNNING;
 
 			//switch
-			context_switch(idleTask, nextTsk);
-			//return
-			myPrintk(0xf, "Return to IdleTask...\n");
 
-			nextTsk->state = TSK_DONE;
-			destroyTsk(nextTsk->id);
+			if(nextTsk->preempted)
+			{
+				context_switch_interrupt(idleTask, nextTsk);
+			}
+			else
+			{
+				context_switch(idleTask, nextTsk);
+			}
+
+			//return
+			// myPrintk(0xf, "Return to IdleTask...\n");
+
+
+			if (nextTsk->preempted)
+			{
+				if(nextTsk->exetime > timeSlice)
+				{
+					nextTsk->state = TSK_READY;
+					nextTsk->exetime = nextTsk->exetime - timeSlice;
+					tskEnqueueSJF(nextTsk);
+				}
+				else
+				{
+					myPrintk(0x4, "Time exceeded, terminating...\n");
+					nextTsk->state = TSK_DONE;
+					destroyTsk(nextTsk->id);
+				}
+
+				
+			}
+			else
+			{
+				nextTsk->state = TSK_DONE;
+				destroyTsk(nextTsk->id);
+			}
 
 
 			idleTask->state = TSK_RUNNING;

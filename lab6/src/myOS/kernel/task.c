@@ -9,7 +9,6 @@
 
 unsigned long tskCnt = 0;
 unsigned long timer = 0;
-#define timeSlice 3
 
 /* createTsk
  * tskBody():

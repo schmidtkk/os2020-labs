@@ -11,7 +11,7 @@ void myTsk0(void){
 		myPrintf(0x7,"myTSK0::%d    \n",j);
 		busy_n_ms(120);
 		j++;
-	}	
+	}
 	tskEnd();   //the task is end
 }
 
